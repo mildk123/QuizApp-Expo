@@ -6,7 +6,7 @@ class BackDrop extends Component {
     constructor() {
         super()
         this.state = {
-            homeBtn: false
+            homeBtn: true
         }
 
     }

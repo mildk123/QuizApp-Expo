@@ -1,12 +1,12 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 
-import BackDrop from '../screens/BackDrop'
+// import BackDrop from '../screens/BackDrop'
 import MainTabNavigator from './MainTabNavigator';
-
-import HomeScreen from '../screens/HomeScreen'
+import Questions from '../screens/Questions';
 
 export default createStackNavigator({
-    BackDrop: BackDrop,
-    Main: MainTabNavigator
+    // BackDrop: BackDrop,
+    Main: MainTabNavigator,
+    Questions: Questions,
 });

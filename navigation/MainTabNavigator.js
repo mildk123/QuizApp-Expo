@@ -9,7 +9,6 @@ import ScoreScreen from '../screens/ScoreScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 
-
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
 });
