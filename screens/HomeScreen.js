@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Platform,
   ScrollView,
   StyleSheet,
   View,
@@ -29,7 +28,7 @@ export default class HomeScreen extends React.Component {
   stateQuiz = () => {
     const endpoint = "https://opentdb.com/api.php?"
     const params = {
-      amount: "10",
+      amount: "5",
       category: "15",
       difficulty: 'easy',
       type: 'multiple',
