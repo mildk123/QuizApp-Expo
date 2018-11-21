@@ -5,7 +5,7 @@ import { Camera, Permissions, FaceDetector } from 'expo';
 export default class Cam extends React.Component {
   state = {
     hasCameraPermission: null,
-    type: Camera.Constants.Type.back,
+    type: Camera.Constants.Type.front,
     autoFocus: Camera.Constants.AutoFocus.on,
     ratio: '1:1',
 

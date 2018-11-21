@@ -8,7 +8,7 @@ class Questions extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            quizQuestion: this.props.navigation.state.params.Questions,
+            quizQuestion: props.navigation.state.params.Questions,
             questionCounter: 0,
             totalPoint: 0,
             quizCompleted: false
