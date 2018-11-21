@@ -54,7 +54,9 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
 
+        <ScrollView>
           <Text>Home</Text>
+        </ScrollView>
         <Button
           onPress={() => {
             this.stateQuiz()
