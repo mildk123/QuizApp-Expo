@@ -18,8 +18,14 @@ class Questions extends Component {
         ];
         return (
             <View style={styles.container}>
-                <Text>Quesasdtions</Text>
-
+                <Text>Question</Text>
+                {this.state.quizQuestion.map((item, index) => {
+                    return <View key={index}>
+                    <Text>{item.category}</Text>
+                    {console.log(item)}
+                        <Text>{item.question}</Text>
+                    </View>
+                })}
             </View>
         );
     }
