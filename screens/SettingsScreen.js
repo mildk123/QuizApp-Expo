@@ -1,7 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
+import { Button, Text } from 'native-base'
 
 export default class SettingsScreen extends React.Component {
+constructor(){
+  super()
+
+  this.state = {
+    counter: 0
+  }
+}
+
 
   render() {
     return <View style={styles.container}>

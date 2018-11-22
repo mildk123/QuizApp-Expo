@@ -12,7 +12,8 @@ class Questions extends Component {
             quizQuestion: props.navigation.state.params.Questions,
             questionCounter: 0,
             totalPoint: 0,
-            quizCompleted: false
+            quizCompleted: false,
+            timeSpend : 0
         };
     }
 
@@ -30,7 +31,7 @@ class Questions extends Component {
                     questionCounter: ++this.state.questionCounter,
                     totalPoint: ++this.state.totalPoint,
                     quizCompleted: true
-                }, () => { this.props.navigation.navigate('Score', { TotalPoints: this.state.totalPoint }) }
+                }, () => { this.props.navigation.navigate('Score', { TotalPoints: this.state.totalPoint, timeTaken: this.state.timeSpend }) }
                 )
             }
         } else {
@@ -43,16 +44,24 @@ class Questions extends Component {
                 this.setState({
                     questionCounter: ++this.state.questionCounter,
                     quizCompleted: true
-                }, () => { this.props.navigation.navigate('Score', { TotalPoints: this.state.totalPoint }) }
+                }, () => { this.props.navigation.navigate('Score', { TotalPoints: this.state.totalPoint, timeTaken: this.state.timeSpend  }) }
                 )
             }
         }
 
     }
 
+    componentDidMount() {
+        setInterval(() => {
+            this.setState({
+                timeSpend: ++this.state.timeSpend
+            })
+        }, 1000)
+    }
+
     render() {
 
-        const { quizQuestion, questionCounter, totalPoint } = this.state;
+        const { quizQuestion, questionCounter, totalPoint, timeSpend} = this.state;
 
         return (
             this.state.quizCompleted !== true && <View style={styles.container}>
@@ -70,6 +79,7 @@ class Questions extends Component {
                         <Text>Total Questions : 10</Text>
                         <Text>Question No : {questionCounter + 1}</Text>
                         <Text>Category : {quizQuestion[0].category}</Text>
+                        <Text>Time taken : {timeSpend}</Text>
                     </View>
 
 
@@ -77,50 +87,50 @@ class Questions extends Component {
                         <Card>
                             <CardItem>
                                 <Body>
-                                   
-                                        <View style={styles.quizDiv}>
 
-                                            <Text>Q. {quizQuestion[questionCounter].question}</Text>
+                                    <View style={styles.quizDiv}>
 
-                                            <View style={styles.Buttons}>
+                                        <Text>Q. {quizQuestion[questionCounter].question}</Text>
 
-                                                <Button
-                                                    style={styles.btn}
-                                                    success
-                                                    onPress={() => { this._checkAnswer(1, questionCounter) }}>
-                                                    <Text>{quizQuestion[questionCounter].incorrect_answers[1]}</Text>
-                                                </Button>
-
-                                                <Button
-                                                    style={styles.btn}
-                                                    success
-                                                    onPress={() => { this._checkAnswer(0, questionCounter) }}>
-                                                    <Text>{quizQuestion[questionCounter].incorrect_answers[0]}</Text>
-                                                </Button>
-
-                                                <Button
-                                                    style={styles.btn}
-                                                    success
-                                                    onPress={() => { this._checkAnswer('correct', questionCounter) }}>
-                                                    <Text>{quizQuestion[questionCounter].correct_answer}</Text>
-                                                </Button>
-
-                                                <Button
-                                                    style={styles.btn}
-                                                    success
-                                                    onPress={() => { this._checkAnswer(2, questionCounter) }}>
-                                                    <Text>{quizQuestion[questionCounter].incorrect_answers[2]}</Text>
-                                                </Button>
-
-                                            </View>
+                                        <View style={styles.Buttons}>
 
                                             <Button
-                                                transparent dark
-                                                onPress={() => console.log(totalPoint)} >
-                                                <Text>{`Correct Answers : ${totalPoint}`}</Text>
+                                                style={styles.btn}
+                                                success
+                                                onPress={() => { this._checkAnswer(1, questionCounter) }}>
+                                                <Text>{quizQuestion[questionCounter].incorrect_answers[1]}</Text>
+                                            </Button>
+
+                                            <Button
+                                                style={styles.btn}
+                                                success
+                                                onPress={() => { this._checkAnswer(0, questionCounter) }}>
+                                                <Text>{quizQuestion[questionCounter].incorrect_answers[0]}</Text>
+                                            </Button>
+
+                                            <Button
+                                                style={styles.btn}
+                                                success
+                                                onPress={() => { this._checkAnswer('correct', questionCounter) }}>
+                                                <Text>{quizQuestion[questionCounter].correct_answer}</Text>
+                                            </Button>
+
+                                            <Button
+                                                style={styles.btn}
+                                                success
+                                                onPress={() => { this._checkAnswer(2, questionCounter) }}>
+                                                <Text>{quizQuestion[questionCounter].incorrect_answers[2]}</Text>
                                             </Button>
 
                                         </View>
+
+                                        <Button
+                                            transparent dark
+                                            onPress={() => console.log(totalPoint)} >
+                                            <Text>{`Correct Answers : ${totalPoint}`}</Text>
+                                        </Button>
+
+                                    </View>
                                 </Body>
                             </CardItem>
                         </Card>
