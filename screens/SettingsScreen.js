@@ -5,7 +5,6 @@ import { View, Text } from 'react-native'
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
     title: 'Settings',
-    header: null
   };
 
   render() {

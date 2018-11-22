@@ -10,7 +10,17 @@ import SettingsScreen from '../screens/SettingsScreen';
 
 
 const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+  Home: {
+    screen : HomeScreen,
+    navigationOptions: {
+      title: 'Home',
+      headerTintColor: 'green',
+      animationEnabled: true,
+      headerStyle: {
+        borderBottomColor: '#e6e6e6'
+      }
+    }
+  }
 });
 
 HomeStack.navigationOptions = {
@@ -30,7 +40,17 @@ HomeStack.navigationOptions = {
 
 
 const ScoreStack = createStackNavigator({
-  Score: ScoreScreen,
+  Score: {
+    screen : ScoreScreen,
+    navigationOptions: {
+      title: 'Score',
+      headerTintColor: 'blue',
+      animationEnabled: true,
+      headerStyle: {
+        borderBottomColor: '#e6e6e6'
+      }
+    }
+  }
 });
 
 ScoreStack.navigationOptions = {
@@ -45,7 +65,17 @@ ScoreStack.navigationOptions = {
 
 
 const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+  Settings: {
+    screen : SettingsScreen,
+    navigationOptions: {
+      title: 'Settings',
+      headerTintColor: 'hotpink',
+      animationEnabled: true,
+      headerStyle: {
+        borderBottomColor: '#e6e6e6'
+      }
+    }
+  }
 });
 
 SettingsStack.navigationOptions = {

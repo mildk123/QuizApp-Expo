@@ -8,9 +8,6 @@ export default class LinksScreen extends React.Component {
       myPoints : 0
     }
   }
-  static navigationOptions = {
-    header: null,
-  };
 
   static getDerivedStateFromProps(nextProps) {
     if(nextProps.navigation.state.params){

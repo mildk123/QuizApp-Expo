@@ -1,29 +1,21 @@
 import React from 'react';
 import {
-  ScrollView,
   StyleSheet,
   View,
-  Text,
-  Button
 } from 'react-native';
+
+import { Button, Text, } from 'native-base';
 
 // Fetching Data from Server
 import Axios from 'axios'
 
-
-
 export default class HomeScreen extends React.Component {
   constructor() {
-    super() 
+    super()
     this.state = {
-      Questions : []
+      Questions: []
     }
   }
-  static navigationOptions = {
-    // title: 'Home',
-    header: null
-  };
-
 
   stateQuiz = () => {
     const endpoint = "https://opentdb.com/api.php?"
@@ -39,7 +31,7 @@ export default class HomeScreen extends React.Component {
       .then(response => {
         this.setState({
           Questions: response.data.results
-        },() => this.props.navigation.navigate('Questions', {Questions : this.state.Questions}) )
+        }, () => this.props.navigation.navigate('Questions', { Questions: this.state.Questions }))
 
       })
       .catch(error => console.log(error)
@@ -52,16 +44,21 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-
-        <ScrollView>
-          <Text>Home</Text>
-        </ScrollView>
-        <Button
-          onPress={() => {
+        <View
+          style={{
+            flex: 1,
+            alignContent: 'center',
+            justifyContent: 'center',
+            alignSelf: 'center'
+          }}>
+          <Button bordered success onPress={() => {
             this.stateQuiz()
-          }}
-          title='Start Quiz'
-        />
+          }}>
+            <Text> Start Quiz </Text>
+          </Button>
+
+        </View>
+
       </View>
     );
   }
@@ -71,7 +68,7 @@ export default class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
+    height: '100%',
   }
 });

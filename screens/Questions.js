@@ -15,6 +15,12 @@ class Questions extends Component {
         };
     }
 
+    static navigationOptions = {
+        title: 'Quiz',
+        headerTintColor: 'red',
+        animationEnabled: true
+      };
+
     _checkAnswer = (answerClicked, questionNo) => {
         let currentQuestion = questionNo + 1
         if (answerClicked === 'correct') {
