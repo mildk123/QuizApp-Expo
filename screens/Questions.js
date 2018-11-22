@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, } from 'react-native'
-import { TouchableOpacity, Button } from 'react-native'
+import { View, StyleSheet, } from 'react-native'
 
+import { Header, Title, Container, Button, Text } from 'native-base'
+import { Content, Card, CardItem, Body } from 'native-base'
 
 
 class Questions extends Component {
@@ -15,19 +16,10 @@ class Questions extends Component {
         };
     }
 
-    static navigationOptions = {
-        title: 'Home',
-        headerTintColor: '#00b0ff',
-        animationEnabled: true,
-        headerStyle: {
-            borderBottomColor: '#00b0ff'
-        }
-    }
-
     _checkAnswer = (answerClicked, questionNo) => {
         let currentQuestion = questionNo + 1
         if (answerClicked === 'correct') {
-            if (currentQuestion <= 4) {
+            if (currentQuestion < 5) {
                 this.setState({
                     totalPoint: ++this.state.totalPoint,
                     questionCounter: ++this.state.questionCounter
@@ -36,12 +28,13 @@ class Questions extends Component {
             } else {
                 this.setState({
                     questionCounter: ++this.state.questionCounter,
+                    totalPoint: ++this.state.totalPoint,
                     quizCompleted: true
                 }, () => { this.props.navigation.navigate('Score', { TotalPoints: this.state.totalPoint }) }
                 )
             }
         } else {
-            if (currentQuestion <= 4) {
+            if (currentQuestion < 5) {
                 this.setState({
                     questionCounter: ++this.state.questionCounter
                 })
@@ -60,50 +53,84 @@ class Questions extends Component {
     render() {
 
         const { quizQuestion, questionCounter, totalPoint } = this.state;
+
         return (
             this.state.quizCompleted !== true && <View style={styles.container}>
-                <Text>Total Questions : 10</Text>
-                <Text>Question No : {questionCounter + 1}</Text>
-                <Text>Category : {quizQuestion[0].category}</Text>
 
-                <View style={styles.quizDiv}>
-                    <Text>Q. {quizQuestion[questionCounter].question}</Text>
+                <Container>
 
-                    <View style={styles.buttons}>
+                    <Header style={{ marginTop: 24 }}>
+                        <Body>
+                            <Title>Quiz</Title>
+                        </Body>
+                    </Header>
 
-                        <TouchableOpacity
-                            onPress={() => { this._checkAnswer(1, questionCounter) }}>
-                            <View style={styles.button}>
-                                <Text style={styles.buttonText}>{quizQuestion[questionCounter].incorrect_answers[1]}</Text>
-                            </View>
-                        </TouchableOpacity>
 
-                        <TouchableOpacity
-                            onPress={() => { this._checkAnswer(0, questionCounter) }}>
-                            <View style={styles.button}>
-                                <Text style={styles.buttonText}>{quizQuestion[questionCounter].incorrect_answers[0]}</Text>
-                            </View>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            onPress={() => { this._checkAnswer('correct', questionCounter) }}>
-                            <View style={styles.button}>
-                                <Text style={styles.buttonText}>{quizQuestion[questionCounter].correct_answer}</Text>
-                            </View>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            onPress={() => { this._checkAnswer(2, questionCounter) }}>
-                            <View style={styles.button}>
-                                <Text style={styles.buttonText}>{quizQuestion[questionCounter].incorrect_answers[2]}</Text>
-                            </View>
-                        </TouchableOpacity>
-
+                    <View style={styles.info}>
+                        <Text>Total Questions : 10</Text>
+                        <Text>Question No : {questionCounter + 1}</Text>
+                        <Text>Category : {quizQuestion[0].category}</Text>
                     </View>
 
-                    <Button onPress={() => console.log(totalPoint)} title={`Total Points : ${totalPoint}`} />
-                </View>
+
+                    <Content>
+                        <Card>
+                            <CardItem>
+                                <Body>
+                                   
+                                        <View style={styles.quizDiv}>
+
+                                            <Text>Q. {quizQuestion[questionCounter].question}</Text>
+
+                                            <View style={styles.Buttons}>
+
+                                                <Button
+                                                    style={styles.btn}
+                                                    success
+                                                    onPress={() => { this._checkAnswer(1, questionCounter) }}>
+                                                    <Text>{quizQuestion[questionCounter].incorrect_answers[1]}</Text>
+                                                </Button>
+
+                                                <Button
+                                                    style={styles.btn}
+                                                    success
+                                                    onPress={() => { this._checkAnswer(0, questionCounter) }}>
+                                                    <Text>{quizQuestion[questionCounter].incorrect_answers[0]}</Text>
+                                                </Button>
+
+                                                <Button
+                                                    style={styles.btn}
+                                                    success
+                                                    onPress={() => { this._checkAnswer('correct', questionCounter) }}>
+                                                    <Text>{quizQuestion[questionCounter].correct_answer}</Text>
+                                                </Button>
+
+                                                <Button
+                                                    style={styles.btn}
+                                                    success
+                                                    onPress={() => { this._checkAnswer(2, questionCounter) }}>
+                                                    <Text>{quizQuestion[questionCounter].incorrect_answers[2]}</Text>
+                                                </Button>
+
+                                            </View>
+
+                                            <Button
+                                                transparent dark
+                                                onPress={() => console.log(totalPoint)} >
+                                                <Text>{`Correct Answers : ${totalPoint}`}</Text>
+                                            </Button>
+
+                                        </View>
+                                </Body>
+                            </CardItem>
+                        </Card>
+                    </Content>
+
+
+                </Container>
+
             </View>
+
         );
     }
 
@@ -113,8 +140,10 @@ class Questions extends Component {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
-        padding: 10,
-        height: '100%',
+        height: '80%',
+    },
+    info: {
+        padding: 15
     },
     quizDiv: {
         borderRadius: 35,
@@ -123,22 +152,17 @@ const styles = StyleSheet.create({
         backgroundColor: 'lightblue',
         flex: 1,
     },
-    buttons: {
+    Buttons: {
+        flex: 1,
         flexDirection: 'column',
+        justifyContent: 'flex-start',
         marginTop: 25,
     },
-    buttonText: {
-        padding: 5,
-        borderRadius: 25,
-        marginTop: 15,
-        width: '95%',
-        margin: 7,
-
-
-        backgroundColor: '#ff4d4d',
-        color: 'white',
-        padding: 10,
-        alignSelf: 'baseline',
+    btn: {
+        alignSelf: 'flex-start',
+        marginTop: 10,
+        margin: 5,
+        width: '90%'
     }
 });
 

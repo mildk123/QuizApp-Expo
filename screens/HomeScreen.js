@@ -18,20 +18,11 @@ export default class HomeScreen extends React.Component {
   }
 
   stateQuiz = () => {
-    const endpoint = "https://opentdb.com/api.php?"
-    const params = {
-      amount: "5",
-      category: "15",
-      difficulty: 'easy',
-      type: 'multiple',
-    }
-
-    Axios.get(endpoint + new URLSearchParams(params))
+    Axios.get("https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple")
       .then(response => {
         this.setState({
           Questions: response.data.results
         }, () => this.props.navigation.navigate('Questions', { Questions: this.state.Questions }))
-
       })
       .catch(error => console.log(error)
       )

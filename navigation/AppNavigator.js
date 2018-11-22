@@ -1,5 +1,6 @@
 import React from 'react';
 import { createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 
 import BackDrop from '../screens/BackDrop'
 import Questions from '../screens/Questions'
@@ -11,6 +12,7 @@ export default createSwitchNavigator({
   // Read more at https://reactnavigation.org/docs/en/auth-flow.html
 
   BackDrop: BackDrop,
-  Questions : Questions,
   Main: MainTabNavigator,
+  Questions : Questions,
 });
+
