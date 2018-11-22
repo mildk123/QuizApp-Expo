@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native'
+import { View, } from 'react-native'
+import { Button, Text } from 'native-base'
 import Cam from '../components/Cam';
 
 class BackDrop extends Component {
@@ -13,7 +14,7 @@ class BackDrop extends Component {
 
     static navigationOptions = {
         title: 'Backdrop',
-    }; 
+    };
 
     renderBtn = boolean => {
         this.setState({
@@ -27,19 +28,21 @@ class BackDrop extends Component {
             <View>
                 <View style={{
                     padding: 8,
-                    height: '76%',
-                    marginTop: 62
+                    height: '72%',
+                    marginTop: 70
                 }}>
-                    <Cam renderBtn={this.renderBtn}/>
+                    <Cam renderBtn={this.renderBtn} />
                 </View>
 
-                <View style={{bottom: 0,}}>
+                <View style={{ flex : 1, justifyContent: 'center', alignContent: 'center', alignSelf: 'center' }}>
 
                     {this.state.homeBtn &&
-                        <Button
-                            title="Go To Homescreen"
+                        <Button rounded info 
                             onPress={() => { this.props.navigation.navigate('Main') }}
-                        />}
+                        >
+                        <Text>Next</Text>
+                        </Button>
+                    }
 
                 </View>
 

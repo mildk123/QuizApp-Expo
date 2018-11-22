@@ -24,7 +24,6 @@ export default class HomeScreen extends React.Component {
       category: "15",
       difficulty: 'easy',
       type: 'multiple',
-      // v: 20181024
     }
 
     Axios.get(endpoint + new URLSearchParams(params))
@@ -51,7 +50,8 @@ export default class HomeScreen extends React.Component {
             justifyContent: 'center',
             alignSelf: 'center'
           }}>
-          <Button bordered success onPress={() => {
+          <Button block success 
+          onPress={() => {
             this.stateQuiz()
           }}>
             <Text> Start Quiz </Text>

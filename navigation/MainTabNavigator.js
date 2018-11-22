@@ -14,10 +14,10 @@ const HomeStack = createStackNavigator({
     screen : HomeScreen,
     navigationOptions: {
       title: 'Home',
-      headerTintColor: 'green',
+      headerTintColor: '#00b0ff',
       animationEnabled: true,
       headerStyle: {
-        borderBottomColor: '#e6e6e6'
+        borderBottomColor: '#00b0ff'
       }
     }
   }
@@ -44,10 +44,10 @@ const ScoreStack = createStackNavigator({
     screen : ScoreScreen,
     navigationOptions: {
       title: 'Score',
-      headerTintColor: 'blue',
+      headerTintColor: '#00b0ff',
       animationEnabled: true,
       headerStyle: {
-        borderBottomColor: '#e6e6e6'
+        borderBottomColor: '#00b0ff'
       }
     }
   }
@@ -69,10 +69,10 @@ const SettingsStack = createStackNavigator({
     screen : SettingsScreen,
     navigationOptions: {
       title: 'Settings',
-      headerTintColor: 'hotpink',
+      headerTintColor: '#00b0ff',
       animationEnabled: true,
       headerStyle: {
-        borderBottomColor: '#e6e6e6'
+        borderBottomColor: '#00b0ff'
       }
     }
   }

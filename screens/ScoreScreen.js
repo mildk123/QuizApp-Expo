@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 
 export default class LinksScreen extends React.Component {
   constructor(props) {
@@ -24,11 +24,11 @@ export default class LinksScreen extends React.Component {
   render() {
     const { myPoints } = this.state;
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         
         {myPoints > 0 && <Text>Score: {this.state.myPoints} out of 5</Text> }
         {myPoints === 0 && <Text>No Quiz taken</Text>}
-      </ScrollView>
+      </View>
     );
   }
 }

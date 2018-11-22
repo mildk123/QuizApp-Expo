@@ -16,10 +16,13 @@ class Questions extends Component {
     }
 
     static navigationOptions = {
-        title: 'Quiz',
-        headerTintColor: 'red',
-        animationEnabled: true
-      };
+        title: 'Home',
+        headerTintColor: '#00b0ff',
+        animationEnabled: true,
+        headerStyle: {
+            borderBottomColor: '#00b0ff'
+        }
+    }
 
     _checkAnswer = (answerClicked, questionNo) => {
         let currentQuestion = questionNo + 1
