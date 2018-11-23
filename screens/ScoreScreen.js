@@ -16,6 +16,7 @@ export default class LinksScreen extends React.Component {
     if (nextProps.navigation.state.params) {
       return {
         myPoints: nextProps.navigation.state.params.TotalPoints,
+        totalQuestions: nextProps.navigation.state.params.totalQuestions,
         timeTaken: nextProps.navigation.state.params.timeTaken
       }
     } else {
@@ -32,7 +33,7 @@ export default class LinksScreen extends React.Component {
           <Card>
             <CardItem>
               <Body>
-                <Text>Score: {this.state.myPoints} out of 5</Text>
+                <Text>Score: {this.state.myPoints} out of {this.state.totalQuestions}</Text>
                 <Text>Time Taken : {this.state.timeTaken} seconds</Text>
 
 

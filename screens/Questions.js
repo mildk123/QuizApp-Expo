@@ -11,16 +11,21 @@ class Questions extends Component {
         this.state = {
             quizQuestion: props.navigation.state.params.Questions,
             questionCounter: 0,
+            totalQuestions : this.props.navigation.state.params.Questions.length,
             totalPoint: 0,
             quizCompleted: false,
-            timeSpend : 0
+            timeSpend: 0
         };
     }
 
     _checkAnswer = (answerClicked, questionNo) => {
         let currentQuestion = questionNo + 1
+
+        let check = this.state.totalQuestions
+        console.log(check)
+
         if (answerClicked === 'correct') {
-            if (currentQuestion < 5) {
+            if (currentQuestion < check) {
                 this.setState({
                     totalPoint: ++this.state.totalPoint,
                     questionCounter: ++this.state.questionCounter
@@ -31,11 +36,16 @@ class Questions extends Component {
                     questionCounter: ++this.state.questionCounter,
                     totalPoint: ++this.state.totalPoint,
                     quizCompleted: true
-                }, () => { this.props.navigation.navigate('Score', { TotalPoints: this.state.totalPoint, timeTaken: this.state.timeSpend }) }
+                }, () => { this.props.navigation.navigate('Score', { 
+                    TotalPoints: this.state.totalPoint, 
+                    totalQuestions : this.state.totalQuestions,
+                    timeTaken: this.state.timeSpend }) }
                 )
             }
+
         } else {
-            if (currentQuestion < 5) {
+
+            if (currentQuestion < check) {
                 this.setState({
                     questionCounter: ++this.state.questionCounter
                 })
@@ -44,7 +54,10 @@ class Questions extends Component {
                 this.setState({
                     questionCounter: ++this.state.questionCounter,
                     quizCompleted: true
-                }, () => { this.props.navigation.navigate('Score', { TotalPoints: this.state.totalPoint, timeTaken: this.state.timeSpend  }) }
+                }, () => { this.props.navigation.navigate('Score', { 
+                    TotalPoints: this.state.totalPoint,
+                    totalQuestions : this.state.totalQuestions,
+                    timeTaken: this.state.timeSpend  }) }
                 )
             }
         }
@@ -60,8 +73,7 @@ class Questions extends Component {
     }
 
     render() {
-
-        const { quizQuestion, questionCounter, totalPoint, timeSpend} = this.state;
+        const { quizQuestion, questionCounter, totalPoint, timeSpend, totalQuestions } = this.state;
 
         return (
             this.state.quizCompleted !== true && <View style={styles.container}>
@@ -76,10 +88,10 @@ class Questions extends Component {
 
 
                     <View style={styles.info}>
-                        <Text>Total Questions : 10</Text>
+                        <Text>Total Questions : {totalQuestions}</Text>
                         <Text>Question No : {questionCounter + 1}</Text>
                         <Text>Category : {quizQuestion[0].category}</Text>
-                        <Text>Time taken : {timeSpend}</Text>
+                        <Text>Time taken : {timeSpend} sec</Text>
                     </View>
 
 
@@ -106,7 +118,7 @@ class Questions extends Component {
                                                 success
                                                 onPress={() => { this._checkAnswer(0, questionCounter) }}>
                                                 <Text>{quizQuestion[questionCounter].incorrect_answers[0]}</Text>
-                                            </Button>
+                                                </Button>
 
                                             <Button
                                                 style={styles.btn}

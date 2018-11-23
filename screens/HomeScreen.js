@@ -4,7 +4,7 @@ import {
   View,
 } from 'react-native';
 
-import {Content, Button, Icon, Text, Form, Picker } from 'native-base';
+import {Content, Button, Text, Form, Picker } from 'native-base';
 
 
 // Fetching Data from Server
@@ -15,12 +15,15 @@ export default class HomeScreen extends React.Component {
     super()
     this.state = {
       Questions: [],
-      selectedCat : 'key6'
+      Category : '9',
+      noOfQuestions: '10',
+      Difficulty: 'easy'
     }
   }
 
   stateQuiz = () => {
-    Axios.get("https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple")
+    const {Category,noOfQuestions,Difficulty} = this.state;
+    Axios.get(`https://opentdb.com/api.php?amount=${noOfQuestions}&category=${Category}&difficulty=${Difficulty}&type=multiple`)
       .then(response => {
         this.setState({
           Questions: response.data.results
@@ -31,61 +34,88 @@ export default class HomeScreen extends React.Component {
 
   }
 
-  _onValueChange = (data) => {
-    console.log(data)
+  _onValueChange = (pickerName, data) => {
+    this.setState({
+      [pickerName] : data
+    })
   }
-
-
 
   render() {
     return (
-
-
-
       <View style={styles.container}>
 
          <Content
          style={{padding: 20}}>
           <Form>
             <Text>Select Category</Text>
+
             <Picker
               mode="dropdown"
-              selectedValue={this.state.selectedCat}
-              onValueChange={(value) => this._onValueChange(value)}
+              selectedValue={this.state.Category}
+              onValueChange={(label) => this._onValueChange('Category',label)}
+
             >
-              <Picker.Item label="General Knowledge" value="key0" />
-              <Picker.Item label="Books" value="key1" />
-              <Picker.Item label="Film" value="key2" />
-              <Picker.Item label="Music" value="key3" />
-              <Picker.Item label="Musicals / Theatres" value="key4" />
-              <Picker.Item label="Television" value="key5" />
-              <Picker.Item label="Video Games" value="key6" />
-              <Picker.Item label="Board Games" value="key7" />
-              <Picker.Item label="Science & Nature" value="key8" />
-              <Picker.Item label="Computers" value="key9" />
-              <Picker.Item label="Mathematics" value="key10" />
-              <Picker.Item label="Mythology" value="key11" />
-              <Picker.Item label="Sports" value="key12" />
-              <Picker.Item label="Geography" value="key13" />
-              <Picker.Item label="History" value="key14" />
-              <Picker.Item label="Politics" value="key15" />
-              <Picker.Item label="Art" value="key16" />
-              <Picker.Item label="Celebrities" value="key17" />
-              <Picker.Item label="Animals" value="key18" />
-              <Picker.Item label="Vehicles" value="key19" />
-              <Picker.Item label="Science: Gadgets" value="key20" />
+              <Picker.Item label="General Knowledge" value="9" />
+              <Picker.Item label="Books" value="10" />
+              <Picker.Item label="Film" value="11" />
+              <Picker.Item label="Music" value="12" />
+              <Picker.Item label="Musicals / Theatres" value="13" />
+              <Picker.Item label="Television" value="14" />
+              <Picker.Item label="Video Games" value="15" />
+              <Picker.Item label="Board Games" value="16" />
+              <Picker.Item label="Science & Nature" value="17" />
+              <Picker.Item label="Computers" value="18" />
+              <Picker.Item label="Mathematics" value="19" />
+              <Picker.Item label="Mythology" value="20" />
+              <Picker.Item label="Sports" value="21" />
+              <Picker.Item label="Geography" value="22" />
+              <Picker.Item label="History" value="23" />
+              <Picker.Item label="Politics" value="24" />
+              <Picker.Item label="Art" value="25" />
+              <Picker.Item label="Celebrities" value="26" />
+              <Picker.Item label="Animals" value="27" />
+              <Picker.Item label="Vehicles" value="28" />
+              <Picker.Item label="Science: Comics" value="29" />
+
             </Picker>
+          </Form>
+
+          <Form>
+            <Text>Number of Questions </Text>
+            <Picker
+              mode= 'dropdown'
+              selectedValue={this.state.noOfQuestions}
+              onValueChange={(label) => this._onValueChange('noOfQuestions',label)}
+            >
+              <Picker.Item label="5" value="5" />
+              <Picker.Item label="6" value="6" />
+              <Picker.Item label="7" value="7" />
+              <Picker.Item label="8" value="8" />
+              <Picker.Item label="9" value="9" />
+              <Picker.Item label="10" value="10" />
+              <Picker.Item label="11" value="11" />
+              <Picker.Item label="12" value="12" />
+              <Picker.Item label="13" value="13" />
+              <Picker.Item label="14" value="14" />
+              <Picker.Item label="15" value="15" />
+              <Picker.Item label="16" value="16" />
+              <Picker.Item label="17" value="17" />
+              <Picker.Item label="18" value="18" />
+              <Picker.Item label="19" value="19" />
+              <Picker.Item label="20" value="20" />
+              </Picker>
           </Form>
 
           <Form>
             <Text>Select Difficulty</Text>
             <Picker
               mode="dropdown"
-              onValueChange={(value) => this._onValueChange(value)}
+              selectedValue={this.state.Difficulty}
+              onValueChange={(label) => this._onValueChange('Difficulty',label)}
             >
-              <Picker.Item label="Easy" value="key0" />
-              <Picker.Item label="Medium" value="key1" />
-              <Picker.Item label="Hard" value="key2" />
+              <Picker.Item label="Easy" value="easy" />
+              <Picker.Item label="Medium" value="medium" />
+              <Picker.Item label="Hard" value="hard" />
               </Picker>
           </Form>
 
