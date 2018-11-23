@@ -37,7 +37,7 @@ class BackDrop extends Component {
                 <View style={{ flex : 1, justifyContent: 'center', alignContent: 'center', alignSelf: 'center' }}>
 
                     {this.state.homeBtn &&
-                        <Button rounded info 
+                        <Button block info 
                             onPress={() => { this.props.navigation.navigate('Main') }}
                         >
                         <Text>Next</Text>
