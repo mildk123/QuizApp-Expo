@@ -14,7 +14,6 @@ export default class LinksScreen extends React.Component {
   }
 
   static getDerivedStateFromProps(nextProps) {
-
     if (nextProps.navigation.state.params) {
       const { TotalPoints, totalQuestions, timeTaken, category } = nextProps.navigation.state.params;
       return {
@@ -30,6 +29,7 @@ export default class LinksScreen extends React.Component {
     }
   }
 
+
   render() {
     console.log(this.state)
     return (
@@ -43,13 +43,7 @@ export default class LinksScreen extends React.Component {
                 <Text style={styles.text}>Category: {item.category}</Text>
                 <Text style={styles.text}>Time Taken : {item.timeTaken} seconds</Text>
 
-                <Button
-                  danger
-                  style={styles.remove}
-                  onPress={() => { console.log(this.props.navigation.navigate('Home')) }}
-                >
-                  <Text>X</Text>
-                </Button>
+
 
                 <Button
                   success
@@ -95,11 +89,6 @@ const styles = StyleSheet.create({
   },
   div: {
     height: 150
-  },
-  remove: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
   },
   btn: {
     position: 'absolute',
