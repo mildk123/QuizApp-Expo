@@ -154,7 +154,7 @@ export default class HomeScreen extends React.Component {
           onPress={() => {
             console.log('No Data Found')
           }}>
-          <Text> No data found this category </Text>
+          <Text> Please choose another category </Text>
         </Button>}
 
       </View>
