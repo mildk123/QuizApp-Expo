@@ -4,7 +4,9 @@ import {
   View,
 } from 'react-native';
 
-import {Content, Button, Text, Form, Picker } from 'native-base';
+import { Content, Button, Text, Form, Picker } from 'native-base';
+
+import { Toast } from "native-base";
 
 
 // Fetching Data from Server
@@ -15,19 +17,29 @@ export default class HomeScreen extends React.Component {
     super()
     this.state = {
       Questions: [],
-      Category : '9',
+      Category: '9',
       noOfQuestions: '10',
-      Difficulty: 'easy'
+      Difficulty: 'easy',
+      showToast: false
+
     }
   }
 
   stateQuiz = () => {
-    const {Category,noOfQuestions,Difficulty} = this.state;
+    const { Category, noOfQuestions, Difficulty } = this.state;
     Axios.get(`https://opentdb.com/api.php?amount=${noOfQuestions}&category=${Category}&difficulty=${Difficulty}&type=multiple`)
       .then(response => {
-        this.setState({
-          Questions: response.data.results
-        }, () => this.props.navigation.navigate('Questions', { Questions: this.state.Questions }))
+        if (response.data.results.length !== 0) {
+          this.setState({
+            Questions: response.data.results
+          }, () => this.props.navigation.navigate('Questions', { Questions: this.state.Questions }))
+
+        } else {
+          this.setState({
+            showToast: true
+          })
+        }
+
       })
       .catch(error => console.log(error)
       )
@@ -36,7 +48,7 @@ export default class HomeScreen extends React.Component {
 
   _onValueChange = (pickerName, data) => {
     this.setState({
-      [pickerName] : data
+      [pickerName]: data
     })
   }
 
@@ -44,15 +56,15 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
 
-         <Content
-         style={{padding: 20}}>
+        <Content
+          style={{ padding: 20 }}>
           <Form>
             <Text>Select Category</Text>
 
             <Picker
               mode="dropdown"
               selectedValue={this.state.Category}
-              onValueChange={(label) => this._onValueChange('Category',label)}
+              onValueChange={(label) => this._onValueChange('Category', label)}
 
             >
               <Picker.Item label="General Knowledge" value="9" />
@@ -83,9 +95,9 @@ export default class HomeScreen extends React.Component {
           <Form>
             <Text>Number of Questions </Text>
             <Picker
-              mode= 'dropdown'
+              mode='dropdown'
               selectedValue={this.state.noOfQuestions}
-              onValueChange={(label) => this._onValueChange('noOfQuestions',label)}
+              onValueChange={(label) => this._onValueChange('noOfQuestions', label)}
             >
               <Picker.Item label="5" value="5" />
               <Picker.Item label="6" value="6" />
@@ -103,7 +115,7 @@ export default class HomeScreen extends React.Component {
               <Picker.Item label="18" value="18" />
               <Picker.Item label="19" value="19" />
               <Picker.Item label="20" value="20" />
-              </Picker>
+            </Picker>
           </Form>
 
           <Form>
@@ -111,17 +123,17 @@ export default class HomeScreen extends React.Component {
             <Picker
               mode="dropdown"
               selectedValue={this.state.Difficulty}
-              onValueChange={(label) => this._onValueChange('Difficulty',label)}
+              onValueChange={(label) => this._onValueChange('Difficulty', label)}
             >
               <Picker.Item label="Easy" value="easy" />
               <Picker.Item label="Medium" value="medium" />
               <Picker.Item label="Hard" value="hard" />
-              </Picker>
+            </Picker>
           </Form>
 
-          
+
         </Content>
-        
+
         <View
           style={{
             flex: 1,
@@ -137,6 +149,13 @@ export default class HomeScreen extends React.Component {
           </Button>
 
         </View>
+
+        {this.state.showToast && <Button full danger
+          onPress={() => {
+            console.log('No Data Found')
+          }}>
+          <Text> No data found this category </Text>
+        </Button>}
 
       </View>
     );

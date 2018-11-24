@@ -11,7 +11,7 @@ class Questions extends Component {
         this.state = {
             quizQuestion: props.navigation.state.params.Questions,
             questionCounter: 0,
-            totalQuestions : this.props.navigation.state.params.Questions.length,
+            totalQuestions: this.props.navigation.state.params.Questions.length,
             totalPoint: 0,
             quizCompleted: false,
             timeSpend: 0
@@ -36,10 +36,13 @@ class Questions extends Component {
                     questionCounter: ++this.state.questionCounter,
                     totalPoint: ++this.state.totalPoint,
                     quizCompleted: true
-                }, () => { this.props.navigation.navigate('Score', { 
-                    TotalPoints: this.state.totalPoint, 
-                    totalQuestions : this.state.totalQuestions,
-                    timeTaken: this.state.timeSpend }) }
+                }, () => {
+                    this.props.navigation.navigate('Score', {
+                        TotalPoints: this.state.totalPoint,
+                        totalQuestions: this.state.totalQuestions,
+                        timeTaken: this.state.timeSpend
+                    })
+                }
                 )
             }
 
@@ -54,10 +57,13 @@ class Questions extends Component {
                 this.setState({
                     questionCounter: ++this.state.questionCounter,
                     quizCompleted: true
-                }, () => { this.props.navigation.navigate('Score', { 
-                    TotalPoints: this.state.totalPoint,
-                    totalQuestions : this.state.totalQuestions,
-                    timeTaken: this.state.timeSpend  }) }
+                }, () => {
+                    this.props.navigation.navigate('Score', {
+                        TotalPoints: this.state.totalPoint,
+                        totalQuestions: this.state.totalQuestions,
+                        timeTaken: this.state.timeSpend
+                    })
+                }
                 )
             }
         }
@@ -80,7 +86,7 @@ class Questions extends Component {
 
                 <Container>
 
-                    <Header style={{ marginTop: 24 }}>
+                    <Header style={styles.header}>
                         <Body>
                             <Title>Quiz</Title>
                         </Body>
@@ -96,56 +102,50 @@ class Questions extends Component {
 
 
                     <Content>
+
                         <Card>
-                            <CardItem>
+                            <CardItem style={styles.quizDiv}>
                                 <Body>
+                                    <Text
+                                        style={styles.question}
+                                    >Q. {quizQuestion[questionCounter].question}</Text>
 
-                                    <View style={styles.quizDiv}>
+                                    <Button
+                                        style={styles.btn}
+                                        success
+                                        onPress={() => { this._checkAnswer(1, questionCounter) }}>
+                                        <Text>{quizQuestion[questionCounter].incorrect_answers[1]}</Text>
+                                    </Button>
 
-                                        <Text>Q. {quizQuestion[questionCounter].question}</Text>
+                                    <Button
+                                        style={styles.btn}
+                                        success
+                                        onPress={() => { this._checkAnswer(0, questionCounter) }}>
+                                        <Text>{quizQuestion[questionCounter].incorrect_answers[0]}</Text>
+                                    </Button>
 
-                                        <View style={styles.Buttons}>
+                                    <Button
+                                        style={styles.btn}
+                                        success
+                                        onPress={() => { this._checkAnswer('correct', questionCounter) }}>
+                                        <Text>{quizQuestion[questionCounter].correct_answer}</Text>
+                                    </Button>
 
-                                            <Button
-                                                style={styles.btn}
-                                                success
-                                                onPress={() => { this._checkAnswer(1, questionCounter) }}>
-                                                <Text>{quizQuestion[questionCounter].incorrect_answers[1]}</Text>
-                                            </Button>
-
-                                            <Button
-                                                style={styles.btn}
-                                                success
-                                                onPress={() => { this._checkAnswer(0, questionCounter) }}>
-                                                <Text>{quizQuestion[questionCounter].incorrect_answers[0]}</Text>
-                                                </Button>
-
-                                            <Button
-                                                style={styles.btn}
-                                                success
-                                                onPress={() => { this._checkAnswer('correct', questionCounter) }}>
-                                                <Text>{quizQuestion[questionCounter].correct_answer}</Text>
-                                            </Button>
-
-                                            <Button
-                                                style={styles.btn}
-                                                success
-                                                onPress={() => { this._checkAnswer(2, questionCounter) }}>
-                                                <Text>{quizQuestion[questionCounter].incorrect_answers[2]}</Text>
-                                            </Button>
-
-                                        </View>
-
-                                        <Button
-                                            transparent dark
-                                            onPress={() => console.log(totalPoint)} >
-                                            <Text>{`Correct Answers : ${totalPoint}`}</Text>
-                                        </Button>
-
-                                    </View>
+                                    <Button
+                                        style={styles.btn}
+                                        success
+                                        onPress={() => { this._checkAnswer(2, questionCounter) }}>
+                                        <Text>{quizQuestion[questionCounter].incorrect_answers[2]}</Text>
+                                    </Button>
                                 </Body>
                             </CardItem>
                         </Card>
+
+                        <Button
+                            transparent block dark
+                            onPress={() => console.log(totalPoint)} >
+                            <Text>{`Correct Answers : ${totalPoint}`}</Text>
+                        </Button>
                     </Content>
 
 
@@ -162,29 +162,34 @@ class Questions extends Component {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
-        height: '80%',
+        height: '90%',
+        maxHeight: '90%'
+    },
+    header: {
+        marginTop: 24,
+        backgroundColor: '#4caf50',
     },
     info: {
         padding: 15
     },
+    question: {
+        color: '#666666',
+        fontSize: 20
+    },
     quizDiv: {
-        borderRadius: 35,
+        borderRadius: 20,
         margin: 5,
         padding: 20,
-        backgroundColor: 'lightblue',
+        backgroundColor: '#eeeeee',
+        width: '100%',
+        maxWidth: 520,
         flex: 1,
-    },
-    Buttons: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        marginTop: 25,
     },
     btn: {
         alignSelf: 'flex-start',
-        marginTop: 10,
+        marginTop: 20,
         margin: 5,
-        width: '90%'
+        width: '95%'
     }
 });
 
