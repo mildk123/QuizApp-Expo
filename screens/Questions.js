@@ -18,11 +18,11 @@ class Questions extends Component {
         };
     }
 
+    // Checking qtiyapa
     _checkAnswer = (answerClicked, questionNo) => {
         let currentQuestion = questionNo + 1
 
         let check = this.state.totalQuestions
-        console.log(check)
 
         if (answerClicked === 'correct') {
             if (currentQuestion < check) {
@@ -40,6 +40,7 @@ class Questions extends Component {
                     this.props.navigation.navigate('Score', {
                         TotalPoints: this.state.totalPoint,
                         totalQuestions: this.state.totalQuestions,
+                        category : this.state.quizQuestion[0].category,
                         timeTaken: this.state.timeSpend
                     })
                 }
@@ -61,6 +62,7 @@ class Questions extends Component {
                     this.props.navigation.navigate('Score', {
                         TotalPoints: this.state.totalPoint,
                         totalQuestions: this.state.totalQuestions,
+                        category : this.state.quizQuestion[0].category,
                         timeTaken: this.state.timeSpend
                     })
                 }
@@ -70,13 +72,27 @@ class Questions extends Component {
 
     }
 
+    // Timer Bullshit
     componentDidMount() {
-        setInterval(() => {
-            this.setState({
-                timeSpend: ++this.state.timeSpend
-            })
+        let timer = setInterval(() => {
+            this.startTimer()
         }, 1000)
+
+        this.setState({ timer: timer })
+
     }
+
+    startTimer = () => {
+        this.setState({
+            timeSpend: ++this.state.timeSpend
+        })
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.state.timer)
+    }
+
+ 
 
     render() {
         const { quizQuestion, questionCounter, totalPoint, timeSpend, totalQuestions } = this.state;

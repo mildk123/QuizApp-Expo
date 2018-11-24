@@ -8,16 +8,22 @@ export default class LinksScreen extends React.Component {
     super(props)
     this.state = {
       myPoints: 0,
+      myScoreArray: [],
       timeTaken: null
     }
   }
 
   static getDerivedStateFromProps(nextProps) {
+
     if (nextProps.navigation.state.params) {
+      const { TotalPoints, totalQuestions, timeTaken, category } = nextProps.navigation.state.params;
       return {
-        myPoints: nextProps.navigation.state.params.TotalPoints,
-        totalQuestions: nextProps.navigation.state.params.totalQuestions,
-        timeTaken: nextProps.navigation.state.params.timeTaken
+        myScoreArray: [{
+          myPoints: TotalPoints,
+          totalQuestions: totalQuestions,
+          category: category,
+          timeTaken: timeTaken
+        }]
       }
     } else {
       return null
@@ -25,29 +31,45 @@ export default class LinksScreen extends React.Component {
   }
 
   render() {
-    const { myPoints } = this.state;
+    console.log(this.state)
     return (
       <View style={styles.container}>
 
-        {myPoints > 0 &&
-          <Card>
+        {this.state.myScoreArray.length !== 0 && this.state.myScoreArray.map((item, index) => {
+          return <Card key={index}>
             <CardItem>
-              <Body>
-                <Text>Score: {this.state.myPoints} out of {this.state.totalQuestions}</Text>
-                <Text>Time Taken : {this.state.timeTaken} seconds</Text>
+              <Body style={styles.div}>
+                <Text style={styles.text}>Score: {item.myPoints} out of {item.totalQuestions}</Text>
+                <Text style={styles.text}>Category: {item.category}</Text>
+                <Text style={styles.text}>Time Taken : {item.timeTaken} seconds</Text>
 
+                <Button
+                  danger
+                  style={styles.remove}
+                  onPress={() => { console.log(this.props.navigation.navigate('Home')) }}
+                >
+                  <Text>X</Text>
+                </Button>
 
-                <Button 
-                bordered success
-                onPress={() => {console.log(this.props.navigation.navigate('Home'))}}
-                ><Text>Play Again</Text></Button>
+                <Button
+                  success
+                  style={styles.btn}
+                  onPress={() => { console.log(this.props.navigation.navigate('Home')) }}
+                >
+                  <Text>Play Again</Text>
+                </Button>
+
 
               </Body>
             </CardItem>
           </Card>
+
+        })
         }
 
-        {myPoints === 0 &&
+       
+
+        {this.state.myScoreArray.length === 0 &&
           <Card>
             <CardItem>
               <Body>
@@ -67,4 +89,21 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     backgroundColor: '#fff',
   },
+  text: {
+    fontSize: 22,
+    margin: 5
+  },
+  div: {
+    height: 150
+  },
+  remove: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+  },
+  btn: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0
+  }
 });
