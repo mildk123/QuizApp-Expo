@@ -3,7 +3,7 @@ import { View, } from 'react-native'
 import { Button, Text } from 'native-base'
 import Cam from '../components/Cam';
 
-class BackDrop extends Component {
+class Back extends Component {
     constructor() {
         super()
         this.state = {
@@ -51,4 +51,4 @@ class BackDrop extends Component {
     }
 }
 
-export default BackDrop;
+export default Back;
