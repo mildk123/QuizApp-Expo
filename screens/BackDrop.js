@@ -3,7 +3,7 @@ import { View, } from 'react-native'
 import { Button, Text } from 'native-base'
 import Cam from '../components/Cam';
 
-class Back extends Component {
+class BackDrop extends Component {
     constructor() {
         super()
         this.state = {
@@ -16,9 +16,9 @@ class Back extends Component {
         title: 'Backdrop',
     };
 
-    renderBtn = boolean => {
+    renderBtn = boolea => {
         this.setState({
-            homeBtn: boolean
+            homeBtn: boolea
         })
     }
 
@@ -51,4 +51,4 @@ class Back extends Component {
     }
 }
 
-export default Back;
+export default BackDrop;
