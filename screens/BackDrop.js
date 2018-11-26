@@ -16,9 +16,9 @@ class BackDrop extends Component {
         title: 'Backdrop',
     };
 
-    renderBtn = boolean => {
+    renderBtn = boolea => {
         this.setState({
-            homeBtn: boolean
+            homeBtn: boolea
         })
     }
 
